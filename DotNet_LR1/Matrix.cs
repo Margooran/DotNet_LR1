@@ -40,11 +40,11 @@ namespace DotNet_LR1
 
         public int[] MultiplyOneThread(int[] vector)
         {
-            int[] result = new int[matrix.GetLength(0)];
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            int[] result = new int[m];
+            for (int i = 0; i < m; i++)
             {
                 result[i] = 0;
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                for (int j = 0; j < n; j++)
                 {
                     result[i] += matrix[i, j] * vector[j];
                 }
@@ -55,9 +55,8 @@ namespace DotNet_LR1
 
         public int[] MultiplyMultiThread(int[] vector, int blockSize, int threadCount)
         {
-            int[] result = new int[matrix.GetLength(0)];
-            int rows = matrix.GetLength(0);
-            int blockCount = (rows + blockSize - 1) / blockSize;
+            int[] result = new int[m];
+            int blockCount = (m + blockSize - 1) / blockSize;
             Thread[] threads = new Thread[threadCount];
 
             for (int t = 0; t < threadCount; t++)
@@ -68,11 +67,11 @@ namespace DotNet_LR1
                     for (int b = threadIndex; b < blockCount; b += threadCount)
                     {
                         int startRow = b * blockSize;
-                        int endRow = Math.Min(startRow + blockSize, rows);
+                        int endRow = Math.Min(startRow + blockSize, m);
                         for (int i = startRow; i < endRow; i++)
                         {
                             result[i] = 0;
-                            for (int j = 0; j < matrix.GetLength(1); j++)
+                            for (int j = 0; j < n; j++)
                             {
                                 result[i] += matrix[i, j] * vector[j];
                             }
