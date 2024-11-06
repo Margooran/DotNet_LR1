@@ -73,7 +73,7 @@ namespace DotNet_LR1
                 Console.WriteLine();
             }
 
-            double boost = (double)timeOneThread / timeMultiThread;
+            double boost = (double)timeOneThread / (double)timeMultiThread;
             Console.WriteLine($"Boost: {boost}\n____________________________________________\n");
         }
         private int MeasureExecutionTime(Func<int[]> action, out int[] result)
